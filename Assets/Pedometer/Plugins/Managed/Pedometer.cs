@@ -1,9 +1,9 @@
 /* 
-*   NatStep
+*   Pedometer
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
-namespace NatStepU {
+namespace PedometerU {
 
     using Platforms;
     using System.Linq;
@@ -13,12 +13,15 @@ namespace NatStepU {
         #region --Op vars--
         private int? initial; // Some step counters count from device boot, so subtract the initial count we get
         private readonly StepCallback callback;
-        public static readonly INatStep Implementation;
+        public static readonly IPedometer Implementation;
         #endregion
 
 
         #region --Ctor--
-
+        
+        /// <summary>
+        /// Create a new pedometer and start listening for updates
+        /// </summary>
         public Pedometer (StepCallback callback) {
             // Register callback
             Implementation.OnStep += OnStep;
@@ -28,9 +31,19 @@ namespace NatStepU {
 
         #region --Operations--
 
-        public void Release () {
+        /// <summary>
+        /// Stop listening for pedometer updates
+        /// </summary>
+        public void Stop () {
             // Unregister callback
             Implementation.OnStep -= OnStep;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void Release () {
+            
         }
 
         private void OnStep (int steps, double distance) {
@@ -46,10 +59,10 @@ namespace NatStepU {
 
         static Pedometer () {
             // Create an implementation for this platform
-            Implementation = new INatStep[] {
-                new NatStepAndroid(),
-                new NatStepiOS(),
-                new NatStepLegacy() // Always supported, uses GPS (so highly inaccurate)
+            Implementation = new IPedometer[] {
+                new PedometerAndroid(),
+                new PedometeriOS(),
+                new PedometerLegacy() // Always supported, uses GPS (so highly inaccurate)
             }.First(impl => impl.IsSupported);
         }
         #endregion

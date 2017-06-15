@@ -1,11 +1,11 @@
 /* 
-*   NatStep
+*   Pedometer
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
-namespace NatStepU.Platforms {
+namespace PedometerU.Platforms {
 
-    public sealed class NatStepLegacy : INatStep {
+    public sealed class PedometerLegacy : IPedometer {
 
         #region --Properties--
 
@@ -17,7 +17,7 @@ namespace NatStepU.Platforms {
 
         #region --Ctor--
 
-        public NatStepLegacy () {
+        public PedometerLegacy () {
             // Do init stuff?
         }
         #endregion

@@ -1,6 +1,6 @@
 //
-//  NatStep.mm
-//  NatStep
+//  Pedometer.mm
+//  Pedometer
 //
 //  Created by Yusuf on 06/15/17.
 //  Copyright (c) 2017 Yusuf Olokoba
@@ -12,16 +12,16 @@
 typedef void (*StepCallback) (int steps, double distance);
 
 
-#pragma mark --NatStep--
+#pragma mark --Pedometer--
 
-@interface NatStep
+@interface Pedometer
 - (id) initWithCallback:(StepCallback) callback;
 - (void) release;
 @property CMPedometer* pedometer;
 @property (readonly) StepCallback callback;
 @end
 
-@implementation NatStep
+@implementation Pedometer
 
 - (id) initWithCallback:(LocationCallback) callback {
     // INCOMPLETE // Create and start pedometer updates
@@ -36,14 +36,14 @@ typedef void (*StepCallback) (int steps, double distance);
 
 #pragma mark --Bridge--
 
-static NatStep* sharedInstance;
+static Pedometer* sharedInstance;
 
-BRIDGE void NSInitialize (StepCallback callback) {
+BRIDGE void Initialize (StepCallback callback) {
     // Create an instance and start listening
-    sharedInstance = [[NatStep alloc] initWithCallback:callback];
+    sharedInstance = [[Pedometer alloc] initWithCallback:callback];
 }
 
-BRIDGE void NSRelease () {
+BRIDGE void Release () {
     if (sharedInstance) [sharedInstance release];
     sharedInstance = nil;
 }

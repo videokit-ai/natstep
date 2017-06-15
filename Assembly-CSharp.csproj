@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D63CB79B-4251-E2F1-3B71-03AB6ABD09DB}</ProjectGuid>
+    <ProjectGuid>{A8216EF7-8054-D3FD-461D-EB1841410C36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -49,13 +49,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\NatStep\Example\StepCounter.cs" />
-     <Compile Include="Assets\NatStep\Plugins\Managed\INatStep.cs" />
-     <Compile Include="Assets\NatStep\Plugins\Managed\NatStep.cs" />
-     <Compile Include="Assets\NatStep\Plugins\Managed\Platforms\NatStepAndroid.cs" />
-     <Compile Include="Assets\NatStep\Plugins\Managed\Platforms\NatStepLegacy.cs" />
-     <Compile Include="Assets\NatStep\Plugins\Managed\Platforms\NatStepiOS.cs" />
-     <None Include="Assets\NatStep\Plugins\Android\AndroidManifest.xml" />
+     <Compile Include="Assets\Pedometer\Example\StepCounter.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\IPedometer.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Pedometer.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerLegacy.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
+     <None Include="Assets\Pedometer\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

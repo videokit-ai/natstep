@@ -1,19 +1,19 @@
 /* 
-*   NatStep
+*   Pedometer
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
-namespace NatStepU.Platforms {
+namespace PedometerU.Platforms {
 
-    public sealed class NatStepiOS : INatStep {
+    public sealed class PedometerAndroid : IPedometer {
 
         #region --Properties--
 
         public event StepCallback OnStep;
-
+        
         public bool IsSupported {
             get {
-                #if !UNITY_IOS || UNITY_EDITOR
+                #if !UNITY_ANDROID || UNITY_EDITOR
                 return false;
                 #endif
                 #pragma warning disable 0162
@@ -26,8 +26,9 @@ namespace NatStepU.Platforms {
 
         #region --Ctor--
 
-        public NatStepiOS () {
-            // Do init stuff?
+        public PedometerAndroid () {
+            // First check if IsSupported
+            // Get reference to java classes?
         }
         #endregion
     }

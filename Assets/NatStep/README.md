@@ -1,2 +1,0 @@
-# NatStep API
-*INCOMPLETE*

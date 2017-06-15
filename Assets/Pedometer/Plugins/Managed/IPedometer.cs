@@ -1,11 +1,11 @@
 /* 
-*   NatStep
+*   Pedometer
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
-namespace NatStepU.Platforms {
+namespace PedometerU.Platforms {
 
-    public interface INatStep {
+    public interface IPedometer {
         
         #region --Properties--
         /// <summary>

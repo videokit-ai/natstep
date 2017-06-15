@@ -1,9 +1,9 @@
 /* 
-*   NatStep
+*   Pedometer
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
-namespace NatStepU.Tests {
+namespace PedometerU.Tests {
 
     using UnityEngine;
     using UnityEngine.UI;
@@ -26,7 +26,7 @@ namespace NatStepU.Tests {
 
         private void OnDisable () {
             // Release the pedometer
-            pedometer.Release();
+            pedometer.Stop();
         }
     }
 }

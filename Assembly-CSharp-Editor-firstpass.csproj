@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A37DC371-9FBE-FE4B-E2C3-E4EA5E5E0F37}</ProjectGuid>
+    <ProjectGuid>{A9C53B25-BB7B-A557-FC35-62BBCCE006F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\Editor\VSCode.cs" />
-     <None Include="Assets\NatStep\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Pedometer\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
