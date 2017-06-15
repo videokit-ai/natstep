@@ -48,7 +48,8 @@ namespace NatStepU {
             // Create an implementation for this platform
             Implementation = new INatStep[] {
                 new NatStepAndroid(),
-                new NatStepiOS()
+                new NatStepiOS(),
+                new NatStepLegacy() // Always supported, uses GPS (so highly inaccurate)
             }.First(impl => impl.IsSupported);
         }
         #endregion

@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NatStep\Example\StepCounter.cs" />
      <Compile Include="Assets\NatStep\Plugins\Managed\INatStep.cs" />
      <Compile Include="Assets\NatStep\Plugins\Managed\NatStep.cs" />
      <Compile Include="Assets\NatStep\Plugins\Managed\Platforms\NatStepAndroid.cs" />
