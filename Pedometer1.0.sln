@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pedometer1.0", "Assembly-CS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pedometer1.0", "Assembly-CSharp-Editor-firstpass.csproj", "{A9C53B25-BB7B-A557-FC35-62BBCCE006F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pedometer1.0", "Assembly-CSharp-Editor.csproj", "{9DAAC497-8169-E6A1-A231-91D74A6F97D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,10 @@ Global
 		{A9C53B25-BB7B-A557-FC35-62BBCCE006F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C53B25-BB7B-A557-FC35-62BBCCE006F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C53B25-BB7B-A557-FC35-62BBCCE006F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DAAC497-8169-E6A1-A231-91D74A6F97D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DAAC497-8169-E6A1-A231-91D74A6F97D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DAAC497-8169-E6A1-A231-91D74A6F97D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DAAC497-8169-E6A1-A231-91D74A6F97D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj

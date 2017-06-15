@@ -17,5 +17,17 @@ namespace PedometerU.Platforms {
         /// </summary>
         bool IsSupported {get;}
         #endregion
+
+
+        #region --Client API--
+        /// <summary>
+        /// Initialize this Pedometer implementation
+        /// </summary>
+        IPedometer Initialize ();
+        /// <summary>
+        /// Teardown this Pedometer implementation and release any resources
+        /// </summary>
+        void Release ();
+        #endregion
     }
 }

@@ -9,41 +9,30 @@
 #import <CoreMotion/CoreMotion.h>
 
 #define BRIDGE extern "C"
-typedef void (*StepCallback) (int steps, double distance);
+#define STEP2METERS 0.715
 
+static CMPedometer* pedometer;
 
-#pragma mark --Pedometer--
-
-@interface Pedometer
-- (id) initWithCallback:(StepCallback) callback;
-- (void) release;
-@property CMPedometer* pedometer;
-@property (readonly) StepCallback callback;
-@end
-
-@implementation Pedometer
-
-- (id) initWithCallback:(LocationCallback) callback {
-    // INCOMPLETE // Create and start pedometer updates
-    return self;
+BRIDGE void PDInitialize () {
+    // Create an instance
+    pedometer = [CMPedometer new];
+    // Start updates
+    [pedometer startPedometerUpdatesFromDate:[NSDate date] withHandler:^(CMPedometerData* data, NSError* error) {
+        // Extract data
+        int steps = data.numberOfSteps.intValue;
+        double distance = CMPedometer.isDistanceAvailable ? data.distance.doubleValue : steps * STEP2METERS;
+        // Send to Unity
+        UnitySendMessage("Pedometer", "OnEvent", [[NSString stringWithFormat:@"%i:%f", steps, distance] UTF8String]);
+    }];
 }
 
-- (void) release {
-    
-}
-@end
-
-
-#pragma mark --Bridge--
-
-static Pedometer* sharedInstance;
-
-BRIDGE void Initialize (StepCallback callback) {
-    // Create an instance and start listening
-    sharedInstance = [[Pedometer alloc] initWithCallback:callback];
+BRIDGE void PDRelease () {
+    // Release and dereference
+    if (pedometer) [pedometer stopPedometerUpdates];
+    pedometer = nil;
 }
 
-BRIDGE void Release () {
-    if (sharedInstance) [sharedInstance release];
-    sharedInstance = nil;
+BRIDGE bool PDIsSupported () {
+    // Check if step counting is available
+    return CMPedometer.isStepCountingAvailable;
 }

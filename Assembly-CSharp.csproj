@@ -55,6 +55,7 @@
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerLegacy.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Utilities\PedometerHelper.cs" />
      <None Include="Assets\Pedometer\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

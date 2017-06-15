@@ -5,6 +5,9 @@
 
 namespace PedometerU.Platforms {
 
+    using UnityEngine;
+    using System.Collections;
+
     public sealed class PedometerLegacy : IPedometer {
 
         #region --Properties--
@@ -15,11 +18,20 @@ namespace PedometerU.Platforms {
         #endregion
 
 
-        #region --Ctor--
+        #region --Client API--
 
-        public PedometerLegacy () {
-            // Do init stuff?
+        public IPedometer Initialize () {
+            return this;
         }
+
+        public void Release () {
+
+        }
+        #endregion
+
+
+        #region --Operations--
+
         #endregion
     }
 }

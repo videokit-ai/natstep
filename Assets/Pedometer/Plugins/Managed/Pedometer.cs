@@ -10,10 +10,26 @@ namespace PedometerU {
 
     public sealed class Pedometer {
 
+        #region --Properties--
+
+        /// <summary>
+        /// Pedometer implementation for the current device. Do not use unless you know what you are doing
+        /// </summary>
+        public static IPedometer Implementation {
+            get {
+                return _Implementation = _Implementation ?? new IPedometer[] {
+                    new PedometerAndroid(),
+                    new PedometeriOS(),
+                    new PedometerLegacy() // Always supported, uses GPS (so highly inaccurate)
+                }.First(impl => impl.IsSupported).Initialize();
+            }
+        }
+        private static IPedometer _Implementation;
+        #endregion
+
         #region --Op vars--
         private int? initial; // Some step counters count from device boot, so subtract the initial count we get
         private readonly StepCallback callback;
-        public static readonly IPedometer Implementation;
         #endregion
 
 
@@ -23,6 +39,8 @@ namespace PedometerU {
         /// Create a new pedometer and start listening for updates
         /// </summary>
         public Pedometer (StepCallback callback) {
+            // Save the callback
+            this.callback = callback;
             // Register callback
             Implementation.OnStep += OnStep;
         }
@@ -40,10 +58,13 @@ namespace PedometerU {
         }
 
         /// <summary>
-        /// 
+        /// Release Pedometer and all of its resources
         /// </summary>
         public static void Release () {
-            
+            if (_Implementation == null) return;
+            // Release and dereference
+            _Implementation.Release();
+            _Implementation = null;
         }
 
         private void OnStep (int steps, double distance) {
@@ -53,20 +74,12 @@ namespace PedometerU {
             if (steps > initial) if (callback != null) callback(steps, distance);
         }
         #endregion
-
-
-        #region --Initialization--
-
-        static Pedometer () {
-            // Create an implementation for this platform
-            Implementation = new IPedometer[] {
-                new PedometerAndroid(),
-                new PedometeriOS(),
-                new PedometerLegacy() // Always supported, uses GPS (so highly inaccurate)
-            }.First(impl => impl.IsSupported);
-        }
-        #endregion
     }
 
+    /// <summary>
+    /// A delegate used to pass pedometer information
+    /// </summary>
+    /// <param name="steps">Number of steps taken</param>
+    /// <param name="distance">Distance walked in meters</param>
     public delegate void StepCallback (int steps, double distance);
 }
