@@ -8,7 +8,7 @@ namespace PedometerU.Platforms {
     using UnityEngine;
     using Utilities;
 
-    public sealed class PedometerAndroid : IPedometer { // INCOMPLETE
+    public sealed class PedometerAndroid : IPedometer {
 
         #region --Properties--
 
@@ -27,8 +27,9 @@ namespace PedometerU.Platforms {
                 #endif
                 #pragma warning disable 0162
                 // Get a reference to PedometerActivity
-                pedometer = new AndroidJavaClass("com.yusufolokoba.pedometer.PedometerActivity");
-                return false; // INCOMPLETE
+                using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) pedometer = player.GetStatic<AndroidJavaObject>("currentActivity");
+                // Check if supported
+                return pedometer.Call<bool>("isSupported");
                 #pragma warning restore 0162
             }
         }
@@ -36,20 +37,21 @@ namespace PedometerU.Platforms {
 
 
         #region --Op vars--
-        private AndroidJavaClass pedometer;
+        private AndroidJavaObject pedometer;
         #endregion
 
 
         #region --Client API--
 
         public IPedometer Initialize () {
-            // First check if IsSupported
-            // Get reference to java classes?
+            // Initialize pedometer natively
+            pedometer.Call("initialize");
             return this;
         }
 
         public void Release () {
-
+            // Release pedometer natively
+            pedometer.Call("release");
         }
         #endregion
     }

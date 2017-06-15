@@ -1,7 +1,13 @@
 package com.yusufolokoba.pedometer;
 
-import com.unity3d.player.UnityPlayerActivity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.os.Bundle;
+import android.widget.Toast;
+import android.util.Log;
+import com.unity3d.player.UnityPlayer;
+import com.unity3d.player.UnityPlayerActivity;
 
 /**
  * Pedometer
@@ -9,13 +15,36 @@ import android.hardware.SensorEventListener;
  */
 public class PedometerActivity extends UnityPlayerActivity implements SensorEventListener {
 
+    //region --Client API--
+
+    public void initialize () {
+        Log.d("Unity", "Pedometer: initialize called");
+    }
+
+    public void release () {
+        
+    }
+
+    public boolean isSupported () {
+        return false;
+    }
+    //endregion
+
+
+    //region --Callbacks--
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
     public void onSensorChanged (SensorEvent event) {
-        // Get the steps
-        final float steps = event.values[0];
-        // Do stuff...
+        // Extract data
+        final double
+        STEP2METERS = 0.715d,
+        steps = event.values[0],
+        distance = steps * STEP2METERS;
+        // Send to Unity
+        UnityPlayer.UnitySendMessage("Pedometer", "OnEvent", String.format("%i:%f", steps, distance));
     }
+    //endregion
 }
