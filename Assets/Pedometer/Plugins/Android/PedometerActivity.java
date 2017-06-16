@@ -31,6 +31,8 @@ public class PedometerActivity extends UnityPlayerActivity implements SensorEven
         }
         // Start listening
         manager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
+        // Log
+        Log.d("Unity", "Pedometer: Initialized Android backend");
     }
 
     public void release () {
@@ -38,6 +40,8 @@ public class PedometerActivity extends UnityPlayerActivity implements SensorEven
         manager.unregisterListener(this);
         // Dereference
         sensor = null;
+        // Log
+        Log.d("Unity", "Pedometer: Released Android backend");
     }
 
     public boolean isSupported () {

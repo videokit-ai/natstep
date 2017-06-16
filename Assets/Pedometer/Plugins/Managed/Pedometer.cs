@@ -20,7 +20,7 @@ namespace PedometerU {
                 return _Implementation = _Implementation ?? new IPedometer[] {
                     new PedometerAndroid(),
                     new PedometeriOS(),
-                    new PedometerLegacy() // Always supported, uses GPS (so highly inaccurate)
+                    new PedometerGPS() // Always supported, uses GPS (so highly inaccurate)
                 }.First(impl => impl.IsSupported).Initialize();
             }
         }

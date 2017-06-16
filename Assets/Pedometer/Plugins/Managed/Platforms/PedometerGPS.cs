@@ -8,7 +8,7 @@ namespace PedometerU.Platforms {
     using UnityEngine;
     using System.Collections;
 
-    public sealed class PedometerLegacy : IPedometer {
+    public sealed class PedometerGPS : IPedometer {
 
         #region --Properties--
 

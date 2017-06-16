@@ -24,12 +24,16 @@ BRIDGE void PDInitialize () {
         // Send to Unity
         UnitySendMessage("Pedometer", "OnEvent", [[NSString stringWithFormat:@"%i:%f", steps, distance] UTF8String]);
     }];
+    // Log
+    NSLog(@"%s", "Pedometer: Initialized iOS backend");
 }
 
 BRIDGE void PDRelease () {
     // Release and dereference
     if (pedometer) [pedometer stopPedometerUpdates];
     pedometer = nil;
+    // Log
+    NSLog(@"%s", "Pedometer: Released iOS backend");
 }
 
 BRIDGE bool PDIsSupported () {

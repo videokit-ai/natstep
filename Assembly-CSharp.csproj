@@ -53,7 +53,7 @@
      <Compile Include="Assets\Pedometer\Plugins\Managed\IPedometer.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Pedometer.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
-     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerLegacy.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerGPS.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Utilities\PedometerHelper.cs" />
      <None Include="Assets\Pedometer\Plugins\Android\AndroidManifest.xml" />
