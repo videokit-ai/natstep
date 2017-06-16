@@ -1,10 +1,11 @@
 package com.yusufolokoba.pedometer;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.os.Bundle;
-import android.widget.Toast;
+import android.hardware.SensorManager;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
@@ -15,18 +16,32 @@ import com.unity3d.player.UnityPlayerActivity;
  */
 public class PedometerActivity extends UnityPlayerActivity implements SensorEventListener {
 
+    private Sensor sensor;
+    private SensorManager manager;
+
     //region --Client API--
 
     public void initialize () {
-        Log.d("Unity", "Pedometer: initialize called");
+        // Get sensor manager
+        manager = manager == null ? (SensorManager)getSystemService(Context.SENSOR_SERVICE) : manager;
+        // Get sensor
+        if ((sensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)) == null) {
+            Log.e("Unity", "Pedometer Error: Failed to acquire step counter sensor");
+            return;
+        }
+        // Start listening
+        manager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
     }
 
     public void release () {
-        
+        // Stop listening
+        manager.unregisterListener(this);
+        // Dereference
+        sensor = null;
     }
 
     public boolean isSupported () {
-        return false;
+        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER);
     }
     //endregion
 
