@@ -14,6 +14,11 @@ namespace PedometerU {
         #region --Properties--
 
         /// <summary>
+        /// How many updates has this pedometer received? Useful for calculating pedometer precision
+        /// </summary>
+        public int updateCount {get; private set;}
+
+        /// <summary>
         /// Pedometer implementation for the current device. Do not use unless you know what you are doing
         /// </summary>
         public static IPedometer Implementation {
@@ -28,8 +33,10 @@ namespace PedometerU {
         private static IPedometer _Implementation;
         #endregion
 
+
         #region --Op vars--
-        private int? initial; // Some step counters count from device boot, so subtract the initial count we get
+        private int initialSteps; // Some step counters count from device boot, so subtract the initial count we get
+        private double initialDistance;
         private readonly StepCallback callback;
         #endregion
 
@@ -68,11 +75,12 @@ namespace PedometerU {
             _Implementation = null;
         }
 
-        private void OnStep (int steps, double distance) {
-            // Set initial
-            initial = initial ?? steps;
+        private void OnStep (int steps, double distance) { // DEPLOY // UpdateCount post increment
+            // Set initials and increment update count
+            initialSteps = updateCount++ == 0 ? steps : initialSteps;
+            initialDistance = steps == initialSteps ? distance : initialDistance;
             // If this is not the first step, then invoke the callback
-            if (steps > initial) if (callback != null) callback(steps, distance);
+            if (steps != initialSteps) if (callback != null) callback(steps - initialSteps, distance - initialDistance);
         }
         #endregion
     }
