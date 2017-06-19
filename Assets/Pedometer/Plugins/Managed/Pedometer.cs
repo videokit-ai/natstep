@@ -6,9 +6,10 @@
 namespace PedometerU {
 
     using Platforms;
+    using System;
     using System.Linq;
 
-    public sealed class Pedometer {
+    public sealed class Pedometer : IDisposable {
 
         #region --Properties--
 
@@ -50,9 +51,9 @@ namespace PedometerU {
         #region --Operations--
 
         /// <summary>
-        /// Stop listening for pedometer updates
+        /// Stop listening for pedometer updates and dispose the object
         /// </summary>
-        public void Stop () {
+        public void Dispose () {
             // Unregister callback
             Implementation.OnStep -= OnStep;
         }
