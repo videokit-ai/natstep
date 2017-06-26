@@ -21,14 +21,14 @@ namespace PedometerU.Tests {
         }
 
         private void OnStep (int steps, double distance) {
-            // Display the values
+            // Display the values // Distance in feet
             stepText.text = steps.ToString();
-            distanceText.text = distance.ToString("F2") + " ft";
+            distanceText.text = (distance * 3.28084).ToString("F2") + " ft";
         }
 
         private void OnDisable () {
             // Release the pedometer
-            pedometer.Stop();
+            pedometer.Dispose();
             pedometer = null;
         }
     }

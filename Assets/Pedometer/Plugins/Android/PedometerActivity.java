@@ -53,7 +53,7 @@ public class PedometerActivity extends UnityPlayerActivity implements SensorEven
     //region --Callbacks--
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+    public void onAccuracyChanged (Sensor sensor, int accuracy) {}
 
     @Override
     public void onSensorChanged (SensorEvent event) {
@@ -63,7 +63,7 @@ public class PedometerActivity extends UnityPlayerActivity implements SensorEven
         steps = event.values[0],
         distance = steps * STEP2METERS;
         // Send to Unity
-        UnityPlayer.UnitySendMessage("Pedometer", "OnEvent", String.format("%i:%f", steps, distance));
+        UnityPlayer.UnitySendMessage("Pedometer", "OnEvent", String.format("%d:%f", (int)steps, distance));
     }
     //endregion
 }
