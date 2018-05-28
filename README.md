@@ -1,7 +1,7 @@
 # Pedometer API
 ![Pedometer](Pedometer.png)
 
-Pedometer is a native pedometer API for the Unity game engine. The API provides sensor information about step count and distance covered (in meters). It is a minimalist API with native backends on iOS and Android. There is also a backend that uses GPS in the case that a hardware pedometer is not available for use. Download the unitypackage [here](https://www.dropbox.com/s/ozau2zutlijnf5w/Pedometer1.0b1.unitypackage?dl=1).
+Pedometer is a native pedometer API for the Unity game engine. The API provides sensor information about step count and distance covered (in meters). It is a minimalist API with native backends on iOS and Android. There is also a backend that uses GPS in the case that a hardware pedometer is not available for use. Download the unitypackage [here](https://github.com/olokobayusuf/Pedometer-API/releases).
 
 ## Pedometer
 To use the API, simply create a `Pedometer` instance:
