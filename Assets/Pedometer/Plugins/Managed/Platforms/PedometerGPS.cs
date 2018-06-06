@@ -14,8 +14,8 @@ namespace PedometerU.Platforms {
 
         #region --Properties--
         public event StepCallback OnStep;
-        public bool IsSupported {get {return true;}}
-        public bool Running {get; private set;}
+        public bool IsSupported {get { return true; }}
+        public bool Running { get; private set; }
         private const double
         LocationTimeout = 20f,
         EarthRadius = 6378.137d, // Meters
@@ -27,19 +27,16 @@ namespace PedometerU.Platforms {
         #region --Client API--
 
         public IPedometer Initialize () {
-            // Check that the user has granted permissions
-            if (!Input.location.isEnabledByUser) Debug.LogError("Pedometer Error: GPS backend requires GPS permissions");
-            // Initialize location services
-            else PedometerHelper.Instance.Dispatch(Update());
-            // Log
+            if (!Input.location.isEnabledByUser)
+                Debug.LogError("Pedometer Error: GPS backend requires GPS permissions");
+            else
+                PedometerHelper.Instance.Dispatch(Update());
             Debug.Log("Pedometer: Initialized GPS backend");
             return this;
         }
 
         public void Release () {
-            // Stop running
             Running = false;
-            // Log
             Debug.Log("Pedometer: Released GPS backend");
         }
         #endregion
@@ -48,9 +45,7 @@ namespace PedometerU.Platforms {
         #region --Operations--
 
         private IEnumerator Update () {
-            // Start location service
             Input.location.Start(0.5f, 3f);
-            // Wait until service initializes
             var time = Time.realtimeSinceStartup;
             yield return new WaitWhile(() => Input.location.status == LocationServiceStatus.Initializing && Time.realtimeSinceStartup - time < LocationTimeout);
             // Check that service initialized
@@ -64,18 +59,16 @@ namespace PedometerU.Platforms {
             Running = true;
             // Update location
             while (Running) {
-                // State checking
-                if (Input.location.status != LocationServiceStatus.Running) yield break;
-                // Check that the data was updated
-                if (Math.Abs(Input.location.lastData.timestamp - lastData.timestamp) < 1e-10) goto end;
+                if (Input.location.status != LocationServiceStatus.Running)
+                    yield break;
+                if (Math.Abs(Input.location.lastData.timestamp - lastData.timestamp) < 1e-10)
+                    goto end;
                 // Accumulate haversine distance
                 var currentData = Input.location.lastData;
                 distance += Distance(lastData.latitude, lastData.longitude, currentData.latitude, currentData.longitude);
-                // Invoke event
-                if (OnStep != null) OnStep((int)(distance / StepsToMeters), distance);
-                // Update data
+                if (OnStep != null)
+                    OnStep((int)(distance / StepsToMeters), distance);
                 lastData = currentData;
-                // Next frame
                 end: yield return null;
             }
             // Stop location service

@@ -10,14 +10,12 @@ namespace PedometerU.Platforms {
 
     public sealed class PedometeriOS : IPedometer {
 
-        #region --Properties--
+
+        #region --Operations--
 
         public event StepCallback OnStep {
-            add {
-                PedometerHelper.Instance.OnStep += value;
-            } remove {
-                PedometerHelper.Instance.OnStep -= value;
-            }
+            add { PedometerHelper.Instance.OnStep += value; }
+            remove { PedometerHelper.Instance.OnStep -= value; }
         }
 
         public bool IsSupported {
@@ -30,19 +28,13 @@ namespace PedometerU.Platforms {
                 #pragma warning restore 0162
             }
         }
-        #endregion
-
-
-        #region --Client API--
 
         public IPedometer Initialize () {
-            // Initialize pedometer natively
             PDInitialize();
             return this;
         }
 
         public void Release () {
-            // Release pedometer natively
             PDRelease();
         }
         #endregion

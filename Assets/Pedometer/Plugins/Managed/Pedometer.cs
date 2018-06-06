@@ -47,9 +47,7 @@ namespace PedometerU {
         /// Create a new pedometer and start listening for updates
         /// </summary>
         public Pedometer (StepCallback callback) {
-            // Save the callback
             this.callback = callback;
-            // Register callback
             Implementation.OnStep += OnStep;
         }
         #endregion
@@ -61,7 +59,6 @@ namespace PedometerU {
         /// Stop listening for pedometer updates and dispose the object
         /// </summary>
         public void Dispose () {
-            // Unregister callback
             Implementation.OnStep -= OnStep;
         }
 

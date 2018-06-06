@@ -13,11 +13,8 @@ namespace PedometerU.Platforms {
         #region --Properties--
 
         public event StepCallback OnStep {
-            add {
-                PedometerHelper.Instance.OnStep += value;
-            } remove {
-                PedometerHelper.Instance.OnStep -= value;
-            }
+            add { PedometerHelper.Instance.OnStep += value; }
+            remove { PedometerHelper.Instance.OnStep -= value; }
         }
         
         public bool IsSupported {
@@ -27,7 +24,8 @@ namespace PedometerU.Platforms {
                 #endif
                 #pragma warning disable 0162
                 // Get a reference to PedometerActivity
-                using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) pedometer = player.GetStatic<AndroidJavaObject>("currentActivity");
+                using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+                    pedometer = player.GetStatic<AndroidJavaObject>("currentActivity");
                 // Check if supported
                 return pedometer.Call<bool>("isSupported");
                 #pragma warning restore 0162
@@ -44,13 +42,11 @@ namespace PedometerU.Platforms {
         #region --Client API--
 
         public IPedometer Initialize () {
-            // Initialize pedometer natively
             pedometer.Call("initialize");
             return this;
         }
 
         public void Release () {
-            // Release pedometer natively
             pedometer.Call("release");
         }
         #endregion

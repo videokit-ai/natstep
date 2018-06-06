@@ -35,7 +35,8 @@ namespace PedometerU.Utilities {
         /// </summary>
         private void OnEvent (string data) {
             // Schema: "steps:distance"
-            int steps; double distance; string[] tokens = data.Split(':');
+            int steps; double distance;
+            string[] tokens = data.Replace(',', '.').Split(':'); // Hacky way to ensure that cultures that use comma instead of dot for decimal work
             // Parse
             if (OnStep == null || !int.TryParse(tokens[0], out steps) || !double.TryParse(tokens[1], out distance)) return;
             // Raise event
