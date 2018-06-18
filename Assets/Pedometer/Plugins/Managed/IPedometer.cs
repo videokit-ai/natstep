@@ -15,7 +15,7 @@ namespace PedometerU.Platforms {
         /// <summary>
         /// Is this implementation supported by the current platform?
         /// </summary>
-        bool IsSupported {get;}
+        bool IsSupported { get; }
         #endregion
 
 

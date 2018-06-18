@@ -16,7 +16,7 @@ namespace PedometerU {
         /// <summary>
         /// How many updates has this pedometer received? Useful for calculating pedometer precision
         /// </summary>
-        public int updateCount {get; private set;}
+        public int updateCount { get; private set; }
 
         /// <summary>
         /// Pedometer implementation for the current device. Do not use unless you know what you are doing
