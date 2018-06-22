@@ -38,5 +38,9 @@ On iOS, simply make changes you want. No need to build anything; the Unity build
 
 Please contribute your changes back to the repository! Since Pedometer is open source, its development must be driven by the community.
 
+## Requirements
+- Unity 5.6+
+- .NET Profile 4.6+
+
 ## Credits
 - [Yusuf Olokoba](mailto:olokobayusuf@gmail.com)

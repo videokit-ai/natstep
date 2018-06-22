@@ -29,7 +29,16 @@ namespace PedometerU.Utilities {
 			// Create the Android plugins directory
 			Directory.CreateDirectory(AndroidPlugins);
 			// Copy the manifest into it // This is the only place where Unity picks up manifests, so we have to copy into it
-			File.Copy(Path.Combine(Environment.CurrentDirectory, "Assets/Pedometer/Plugins/Android/AndroidManifest.xml"), Path.Combine(AndroidPlugins, "AndroidManifest.xml"));				
+			File.Copy(
+				Path.Combine(
+					Environment.CurrentDirectory,
+					"Assets/Pedometer/Plugins/Android/AndroidManifest.xml"
+				),
+				Path.Combine(
+					AndroidPlugins,
+					"AndroidManifest.xml"
+				)
+			);				
 			#endif
 		}
 
