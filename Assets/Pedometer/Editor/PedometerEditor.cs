@@ -3,6 +3,8 @@
 *   Copyright (c) 2017 Yusuf Olokoba
 */
 
+using UnityEditor.Build.Reporting;
+
 namespace PedometerU.Utilities {
 
     using UnityEditor;
@@ -15,7 +17,7 @@ namespace PedometerU.Utilities {
 	using UnityEditor.iOS.Xcode;
 	#endif
 
-    public class PedometerEditor : IPreprocessBuild, IPostprocessBuild, IOrderedCallback {
+    public class PedometerEditor : IPreprocessBuildWithReport, IPostprocessBuildWithReport, IOrderedCallback {
 
 		private string AndroidPlugins => Path.Combine(Environment.CurrentDirectory, "Assets/Plugins/Android");
 		int IOrderedCallback.callbackOrder { get; } = 0;
@@ -24,7 +26,7 @@ namespace PedometerU.Utilities {
 		MotionUsageKey = @"NSMotionUsageDescription",
 		MotionUsageDescription = @"Allow this app to use the pedometer."; // Change this as necessary
 
-		void IPreprocessBuild.OnPreprocessBuild (BuildTarget target, string path) {
+		void IPreprocessBuildWithReport.OnPreprocessBuild (BuildReport report) {
 			#if UNITY_ANDROID
 			// Create the Android plugins directory
 			Directory.CreateDirectory(AndroidPlugins);
@@ -42,13 +44,13 @@ namespace PedometerU.Utilities {
 			#endif
 		}
 
-		void IPostprocessBuild.OnPostprocessBuild (BuildTarget target, string path) {
+		void IPostprocessBuildWithReport.OnPostprocessBuild (BuildReport report) {
 			#if UNITY_ANDROID
 			// Delete the Android manifest from Plugins/Android
 			File.Delete(Path.Combine(AndroidPlugins, "AndroidManifest.xml"));
 			#elif UNITY_IOS
 			// Get the property list
-			string plistPath = path + "/Info.plist";
+			string plistPath = report.summary.outputPath + "/Info.plist";
 			PlistDocument plist = new PlistDocument();
 			// Read it
 			plist.ReadFromString(File.ReadAllText(plistPath));
