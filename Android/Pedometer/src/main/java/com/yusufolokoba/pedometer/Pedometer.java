@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+import com.unity3d.player.UnityPlayer;
 
 /**
  * Pedometer
@@ -21,7 +22,7 @@ public class Pedometer implements SensorEventListener {
 
     public Pedometer (PedometerDelegate delegate) {
         this.delegate = delegate;
-        this.manager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        this.manager = (SensorManager) UnityPlayer.currentActivity.getSystemService(Context.SENSOR_SERVICE);
     }
 
     public void initialize () {
@@ -40,7 +41,7 @@ public class Pedometer implements SensorEventListener {
     }
 
     public boolean isSupported () {
-        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER);
+        return UnityPlayer.currentActivity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER);
     }
     //endregion
 
@@ -54,7 +55,7 @@ public class Pedometer implements SensorEventListener {
     public void onSensorChanged (SensorEvent event) {
         // Extract data
         final double STEP2METERS = 0.715d;
-        final int steps = (int)event.values[0],
+        final int steps = (int)event.values[0];
         final double distance = steps * STEP2METERS;
         // Send to Unity
         delegate.onStep(steps, distance);
