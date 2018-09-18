@@ -1,46 +1,41 @@
 package com.yusufolokoba.pedometer;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.content.pm.PackageManager;
 import android.util.Log;
-import com.unity3d.player.UnityPlayer;
-import com.unity3d.player.UnityPlayerActivity;
 
 /**
  * Pedometer
- * Created by Yusuf on 06/14/17.
+ * Created by yusuf on 9/17/18.
  */
-public class PedometerActivity extends UnityPlayerActivity implements SensorEventListener {
+public class Pedometer implements SensorEventListener {
 
-    private Sensor sensor;
     private SensorManager manager;
+    private final PedometerDelegate delegate;
 
     //region --Client API--
 
+    public Pedometer (PedometerDelegate delegate) {
+        this.delegate = delegate;
+        this.manager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+    }
+
     public void initialize () {
-        // Get sensor manager
-        manager = manager == null ? (SensorManager)getSystemService(Context.SENSOR_SERVICE) : manager;
-        // Get sensor
-        if ((sensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)) == null) {
+        final Sensor sensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (sensor == null) {
             Log.e("Unity", "Pedometer Error: Failed to acquire step counter sensor");
             return;
         }
-        // Start listening
         manager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
-        // Log
         Log.d("Unity", "Pedometer: Initialized Android backend");
     }
 
     public void release () {
-        // Stop listening
         manager.unregisterListener(this);
-        // Dereference
-        sensor = null;
-        // Log
         Log.d("Unity", "Pedometer: Released Android backend");
     }
 
@@ -58,12 +53,11 @@ public class PedometerActivity extends UnityPlayerActivity implements SensorEven
     @Override
     public void onSensorChanged (SensorEvent event) {
         // Extract data
-        final double
-        STEP2METERS = 0.715d,
-        steps = event.values[0],
-        distance = steps * STEP2METERS;
+        final double STEP2METERS = 0.715d;
+        final int steps = (int)event.values[0],
+        final double distance = steps * STEP2METERS;
         // Send to Unity
-        UnityPlayer.UnitySendMessage("Pedometer", "OnEvent", String.format("%d:%f", (int)steps, distance));
+        delegate.onStep(steps, distance);
     }
     //endregion
 }
