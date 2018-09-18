@@ -54,11 +54,10 @@
      <Compile Include="Assets\Pedometer\Example\StepCounter.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\IPedometer.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Pedometer.cs" />
-     <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerHelper.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerTypes.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
-     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerGPS.cs" />
+     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerBridge.cs" />
      <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
-     <None Include="Assets\Pedometer\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>

@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		8811D14021508CC5004A30A2 /* Pedometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8811D13F21508CC5004A30A2 /* Pedometer.m */; };
-		8811D14121508CC5004A30A2 /* Pedometer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8811D13E21508CC5004A30A2 /* Pedometer.h */; };
+		88891F8021515FEF00A97625 /* libPedometer.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8811D13B21508CC5004A30A2 /* libPedometer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8811D13921508CC5004A30A2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstPath = "$(PROJECT_DIR)/../Assets/Pedometer/Plugins/iOS";
+			dstSubfolderSpec = 0;
 			files = (
-				8811D14121508CC5004A30A2 /* Pedometer.h in CopyFiles */,
+				88891F8021515FEF00A97625 /* libPedometer.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		8811D13B21508CC5004A30A2 /* libPedometer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPedometer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8811D13E21508CC5004A30A2 /* Pedometer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pedometer.h; sourceTree = "<group>"; };
 		8811D13F21508CC5004A30A2 /* Pedometer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pedometer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +59,6 @@
 		8811D13D21508CC5004A30A2 /* Pedometer */ = {
 			isa = PBXGroup;
 			children = (
-				8811D13E21508CC5004A30A2 /* Pedometer.h */,
 				8811D13F21508CC5004A30A2 /* Pedometer.m */,
 			);
 			path = Pedometer;
@@ -242,8 +240,10 @@
 		8811D14521508CC5004A30A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NPA3XMW8F9;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -254,8 +254,10 @@
 		8811D14621508CC5004A30A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NPA3XMW8F9;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
