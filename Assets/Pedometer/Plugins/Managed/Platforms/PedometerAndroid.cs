@@ -22,7 +22,7 @@ namespace PedometerU.Platforms {
             }
         }
 
-        public bool IsSupported {
+        bool IPedometer.IsSupported {
             get {
                 return pedometer.Call<bool>("isSupported");
             }
@@ -41,7 +41,7 @@ namespace PedometerU.Platforms {
 
         private void onStep (int steps, double distance) {
             // Relay
-            (Pedometer.Implementation as PedometerAndroid).stepCallback(steps, distance);
+            PedometerUtility.Dispatch(() => stepCallback(steps, distance));
         }
         #endregion
     }

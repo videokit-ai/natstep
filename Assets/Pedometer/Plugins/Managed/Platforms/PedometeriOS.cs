@@ -24,7 +24,7 @@ namespace PedometerU.Platforms {
             }
         }
 
-        public bool IsSupported {
+        bool IPedometer.IsSupported {
             get {
                 return PedometerBridge.IsSupported();
             }
@@ -39,7 +39,9 @@ namespace PedometerU.Platforms {
         [MonoPInvokeCallback(typeof(StepCallback))]
         private static void OnStep (int steps, double distance) {
             // Relay
-            (Pedometer.Implementation as PedometeriOS).stepCallback(steps, distance);
+            PedometerUtility.Dispatch(() => {
+                (Pedometer.Implementation as PedometeriOS).stepCallback(steps, distance);
+            });
         }
         #endregion
     }
