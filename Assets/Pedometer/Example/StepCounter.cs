@@ -1,6 +1,6 @@
 /* 
 *   Pedometer
-*   Copyright (c) 2017 Yusuf Olokoba
+*   Copyright (c) 2018 Yusuf Olokoba
 */
 
 namespace PedometerU.Tests {

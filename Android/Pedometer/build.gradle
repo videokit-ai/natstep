@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (variant.name == android.buildTypes.release.name) {
+                def file = output.outputFile;
+                def fileName = "Pedometer.aar"
+                output.outputFile = new File(file.parent, fileName)
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile project(':Unity')
+}
+
+task copyToUnity(type: Copy) {
+    from 'build/outputs/aar/Pedometer.aar'
+    into '../../Assets/Pedometer/Plugins/Android'
+}
+
+assemble.finalizedBy (copyToUnity)

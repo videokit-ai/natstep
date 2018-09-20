@@ -1,53 +1,47 @@
 /* 
 *   Pedometer
-*   Copyright (c) 2017 Yusuf Olokoba
+*   Copyright (c) 2018 Yusuf Olokoba
 */
 
 namespace PedometerU.Platforms {
 
     using UnityEngine;
-    using Utilities;
 
-    public sealed class PedometerAndroid : IPedometer {
+    public sealed class PedometerAndroid : AndroidJavaProxy, IPedometer {
 
-        #region --Properties--
+        #region --IPedometer--
 
-        public event StepCallback OnStep {
-            add { PedometerHelper.Instance.OnStep += value; }
-            remove { PedometerHelper.Instance.OnStep -= value; }
+        event StepCallback IPedometer.OnStep {
+            add {
+                if (stepCallback == null) pedometer.Call("initialize");
+                stepCallback += value;
+            }
+            remove {
+                stepCallback -= value;
+                if (stepCallback == null) pedometer.Call("release");
+            }
         }
-        
-        public bool IsSupported {
+
+        bool IPedometer.IsSupported {
             get {
-                #if !UNITY_ANDROID || UNITY_EDITOR
-                return false;
-                #endif
-                #pragma warning disable 0162
-                // Get a reference to PedometerActivity
-                using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-                    pedometer = player.GetStatic<AndroidJavaObject>("currentActivity");
-                // Check if supported
                 return pedometer.Call<bool>("isSupported");
-                #pragma warning restore 0162
             }
         }
         #endregion
 
 
-        #region --Op vars--
-        private AndroidJavaObject pedometer;
-        #endregion
+        #region --Operations--
 
+        private StepCallback stepCallback;
+        private readonly AndroidJavaObject pedometer;
 
-        #region --Client API--
-
-        public IPedometer Initialize () {
-            pedometer.Call("initialize");
-            return this;
+        public PedometerAndroid () : base("com.yusufolokoba.pedometer.PedometerDelegate") {
+            pedometer = new AndroidJavaObject("com.yusufolokoba.pedometer.Pedometer", this);
         }
 
-        public void Release () {
-            pedometer.Call("release");
+        private void onStep (int steps, double distance) {
+            // Relay
+            PedometerUtility.Dispatch(() => stepCallback(steps, distance));
         }
         #endregion
     }

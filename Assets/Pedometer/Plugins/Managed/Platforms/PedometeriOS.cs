@@ -1,60 +1,48 @@
 /* 
 *   Pedometer
-*   Copyright (c) 2017 Yusuf Olokoba
+*   Copyright (c) 2018 Yusuf Olokoba
 */
 
 namespace PedometerU.Platforms {
 
+    using AOT;
     using System.Runtime.InteropServices;
-    using Utilities;
 
     public sealed class PedometeriOS : IPedometer {
 
 
-        #region --Operations--
+        #region --IPedometer--
 
-        public event StepCallback OnStep {
-            add { PedometerHelper.Instance.OnStep += value; }
-            remove { PedometerHelper.Instance.OnStep -= value; }
-        }
-
-        public bool IsSupported {
-            get {
-                #if !UNITY_IOS || UNITY_EDITOR
-                return false;
-                #endif
-                #pragma warning disable 0162
-                return PDIsSupported();
-                #pragma warning restore 0162
+        event StepCallback IPedometer.OnStep {
+            add {
+                if (stepCallback == null) PedometerBridge.Initialize(OnStep);
+                stepCallback += value;
+            }
+            remove {
+                stepCallback -= value;
+                if (stepCallback == null) PedometerBridge.Release();
             }
         }
 
-        public IPedometer Initialize () {
-            PDInitialize();
-            return this;
-        }
-
-        public void Release () {
-            PDRelease();
+        bool IPedometer.IsSupported {
+            get {
+                return PedometerBridge.IsSupported();
+            }
         }
         #endregion
 
 
-        #region --Bridge--
+        #region --Operations--
 
-        #if UNITY_IOS
-        [DllImport("__Internal")]
-        private static extern void PDInitialize ();
-        [DllImport("__Internal")]
-        private static extern void PDRelease ();
-        [DllImport("__Internal")]
-        private static extern bool PDIsSupported ();
+        private StepCallback stepCallback;
 
-        #else // Keep IL2CPP happy
-        private static void PDInitialize () {}
-        private static void PDRelease () {}
-        private static bool PDIsSupported () {return false;}
-        #endif
+        [MonoPInvokeCallback(typeof(StepCallback))]
+        private static void OnStep (int steps, double distance) {
+            // Relay
+            PedometerUtility.Dispatch(() => {
+                (Pedometer.Implementation as PedometeriOS).stepCallback(steps, distance);
+            });
+        }
         #endregion
     }
 }
