@@ -15,12 +15,14 @@ namespace PedometerU {
         private static Queue<Action> dispatchQueue = new Queue<Action>();
         private static readonly object dispatchFence = new object();
 
-        private PedometerUtility () {}
-
-        static PedometerUtility () {
+        public static void Initialize () {
             new GameObject("Pedometer Event Utility").AddComponent<PedometerUtility>();
         }
 
+        public static void Dispatch (Action action) {
+            lock (dispatchFence) if (action != null) dispatchQueue.Enqueue(action);
+        }
+        
         void Awake () {
             DontDestroyOnLoad(this.gameObject);
             DontDestroyOnLoad(this);
@@ -28,10 +30,6 @@ namespace PedometerU {
 
         void Update () {
             lock (dispatchFence) while (dispatchQueue.Count > 0) dispatchQueue.Dequeue()();
-        }
-
-        public static void Dispatch (Action action) {
-            lock (dispatchFence) if (action != null) dispatchQueue.Enqueue(action);
         }
     }
 }

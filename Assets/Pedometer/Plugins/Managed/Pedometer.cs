@@ -84,6 +84,7 @@ namespace PedometerU {
             #else
             null;
             #endif
+            PedometerUtility.Initialize();
         }
         #endregion
     }
