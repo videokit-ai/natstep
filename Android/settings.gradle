@@ -1,1 +1,2 @@
-include ':Pedometer', ':Unity'
+include ':NatStep'
+rootProject.name = "NatStep"
