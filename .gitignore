@@ -1,12 +1,19 @@
+# Unity
 Library/
 Temp/
-.vscode/
 obj/
+
+# IDE
+.vscode/
+.gradle/
+.vs/
+
+# Asset Store
 Assets/AssetStoreTools/
 Assets/AssetStoreTools.meta
-Assets/Calligraphy/
-Assets/Calligraphy.meta
-Assets/Support/
-Assets/Support.meta
-Assets/Plugins/
-Assets/Plugins.meta
+
+# Recordings
+recording_*
+
+# Misc
+.DS_Store
